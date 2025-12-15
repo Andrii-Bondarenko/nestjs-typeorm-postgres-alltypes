@@ -13,7 +13,11 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.usersRepository.create(createUserDto);
+    const user = this.usersRepository.create({
+        ...createUserDto,
+        document: createUserDto.document ? Buffer.from(createUserDto.document, 'base64') : undefined,
+    });
+
     return this.usersRepository.save(user);
   }
 
