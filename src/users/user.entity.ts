@@ -138,28 +138,108 @@ export class User extends BaseEntity {
   @Column({ default: true })
   completed: boolean;
 
+  // ENUM - predefined list of values
+  // Example: 'admin', 'editor', 'ghost'
   @Column({ type: "enum", enum: UserRole, default: UserRole.GHOST })
   role: UserRole;
 
+  // POINT - Geometric Point
+  // Format: (x,y)
+  // Example: '(10,10)' meaning point at x=10, y=10
   @Column("point", { nullable: true })
   point: string;
 
+  // LINE - Geometric Line (infinite)
+  // Format: {A,B,C} (Ax + By + C = 0) or [(x1,y1),(x2,y2)]
   @Column("line", { nullable: true })
   line: string;
 
+  // BOX - Rectangular Box
+  // Format: ((x1,y1),(x2,y2)) - opposite corners
+  // Example: '((10,10),(20,20))'
   @Column("box", { nullable: true })
   box: string;
 
+  // LSEG - Line Segment (finite)
+  // Format: [(x1,y1),(x2,y2)] - endpoints
+  // Example: '[(10,10),(20,20)]'
   @Column("lseg", { nullable: true })
   lseg: string;
 
+  // PATH - Geometric Path (list of connected points)
+  // Format: ((x1,y1),(x2,y2),...) for closed, [(x1,y1),...] for open
   @Column("path", { nullable: true })
   path: string;
 
+  // POLYGON - Closed Geometric Area
+  // Format: ((x1,y1),(x2,y2),...)
   @Column("polygon", { nullable: true })
   polygon: string;
 
+  // CIRCLE - Geometric Circle
+  // Format: <(x,y),r> where (x,y) is center and r is radius
+  // Example: '<(10,10),5>'
   @Column("circle", { nullable: true })
   circle: string;
+
+  // INET - IPv4 or IPv6 host address, and optionally its subnet
+  // Example: '192.168.0.1' or '192.168.0.1/24'
+  @Column("inet", { nullable: true })
+  inet: string;
+
+  // CIDR - IPv4 or IPv6 network specification
+  // Example: '192.168.0.0/24' or '2001:4f8:3:ba::/64'
+  @Column("cidr", { nullable: true })
+  ip: string;
+
+  // MACADDR - MAC address (6 bytes)
+  // Example: '08:00:2b:01:02:03'
+  @Column("macaddr", { nullable: true })
+  macaddress: string;
+
+  // MACADDR8 - MAC address (8 bytes / EUI-64)
+  // Example: '08:00:2b:01:02:03:04:05'
+  @Column("macaddr8", { nullable: true })
+  macaddress8: string;
+
+  // BIT - Fixed-length bit string
+  // Example: '10101010' (must be exact length)
+  @Column({ type: "bit", nullable: true, length: 8 })
+  bit: string;
+
+  // VARBIT - Variable-length bit string
+  // Example: '101' or '10101'
+  @Column("varbit", { nullable: true })
+  varbit: string;
+
+  // TSVECTOR - Text search vector (sorted list of distinct lexemes)
+  // Example: "'cat':3 'fat':2 'rat':4" (used for full-text search)
+  // Note: Usually auto-generated from other text columns
+  @Column({
+    type: 'tsvector',
+    nullable: true,
+  })
+  fullTextSearch: string;
+
+  // JSON - Stores JSON data as text
+  // Pros: Preserves original formatting (whitespace, key order)
+  // Cons: Slower processing, no indexing support
+  // Use for: Logs, auditing, where data structure shouldn't change
+  @Column("json", { nullable: true })
+  activeData: object;
+
+  // JSONB - Binary JSON storage (Best for Postgres)
+  // Pros: Faster processing, supports indexing (GIN/GIST), prevents duplicate keys
+  // Cons: Slightly slower insertion (due to conversion), doesn't preserve whitespace/order
+  // Use for: Configs, flexible schemas, NoSQL-like data storage
+  @Column("jsonb", { nullable: true })
+  activeDataB: object;
+
+  // SIMPLE-JSON - TypeORM specific type (usually matches 'text' in DB)
+  // Pros: Works across different databases (MySQL, SQLite, etc.)
+  // Cons: No database-level JSON validation or query features
+  // Use for: Cross-database compatibility
+  @Column("simple-json", { nullable: true })
+  activeDataSimple: object;
 }
 
