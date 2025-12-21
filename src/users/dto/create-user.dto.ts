@@ -1,66 +1,169 @@
+import { IsBoolean, IsDate, IsEnum, IsInt, IsIP, IsNotEmpty, IsNumber, IsNumberString, IsObject, IsOptional, IsString, IsBase64, MaxLength, IsMACAddress } from 'class-validator';
+import { Type } from 'class-transformer';
 import { UserRole } from '../user.entity';
 
 export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
   firstName: string;
-  lastName: string;
-  isActive?: boolean;
-  
-  // Numeric types
-  fingerAmount?: number;        // integer
-  age?: number;                 // smallint, defaults to 0 in entity
-  accountNumber?: string;       // bigint (string in JS)
-  
-  // Decimal types
-  debt?: number;                // decimal(10,2)
-  debt2?: number;               // numeric(10,4)
-  debt3?: number;               // real
-  
-  // Geographic coordinates
-  longitude?: number;           // double precision
-  latitude?: number;            // double precision
-  
-  // Money type
-  walletBalance?: number;       // money (fixed 2 decimal places)
-  
-  // String types
-  shortDescription?: string;    // varchar(10)
-  comment?: string;             // char(10)
-  longDescription?: string;     // text
 
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @IsOptional()
+  @IsInt()
+  fingerAmount?: number;
+
+  @IsOptional()
+  @IsInt()
+  age?: number;
+
+  @IsOptional()
+  @IsNumberString()
+  accountNumber?: string;
+
+  @IsOptional()
+  @IsNumber()
+  debt?: number;
+
+  @IsOptional()
+  @IsNumber()
+  debt2?: number;
+
+  @IsOptional()
+  @IsNumber()
+  debt3?: number;
+
+  @IsOptional()
+  @IsNumber()
+  longitude?: number;
+
+  @IsOptional()
+  @IsNumber()
+  latitude?: number;
+
+  @IsOptional()
+  @IsNumber()
+  walletBalance?: number;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(10)
+  shortDescription?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(10)
+  comment?: string;
+
+  @IsOptional()
+  @IsString()
+  longDescription?: string;
+
+  @IsOptional()
+  @IsBase64()
   document?: string;
 
-  // Date & Time types
-  birthday?: Date;              // date (YYYY-MM-DD)
-  timeComming?: string;         // time (HH:MM:SS)
-  timestamp?: Date;             // timestamp (YYYY-MM-DD HH:MM:SS)
-  interval?: any;               // interval (e.g., "1 year")
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  birthday?: Date;
 
-  // Boolean & Enum
+  @IsOptional()
+  @IsString()
+  timeComming?: string;
+
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  timestamp?: Date;
+
+  @IsOptional()
+  @IsString()
+  interval?: any;
+
+  @IsOptional()
+  @IsBoolean()
   completed?: boolean;
+
+  @IsOptional()
+  @IsEnum(UserRole)
   role?: UserRole;
 
-  // Geometric types
-  point?: string;               // "(x,y)"
-  line?: string;                // "{A,B,C}" or "[(x1,y1),(x2,y2)]"
-  lseg?: string;                // "[(x1,y1),(x2,y2)]"
-  box?: string;                 // "((x1,y1),(x2,y2))"
-  path?: string;                // "((x1,y1),...)"
-  polygon?: string;             // "((x1,y1),...)"
-  circle?: string;              // "<(x,y),r>"
+  @IsOptional()
+  @IsString()
+  point?: string;
 
-  // Network types
-  inet?: string;                // "192.168.0.1"
-  ip?: string;                  // "192.168.0.0/24" (CIDR)
-  macaddress?: string;          // "08:00:2b:01:02:03"
-  macaddress8?: string;         // "08:00:2b:01:02:03:04:05"
+  @IsOptional()
+  @IsString()
+  line?: string;
 
-  // Bit string types
-  bit?: string;                 // "10101010" (exact length 8)
-  varbit?: string;              // "101" 
-  fullTextSearch?: string;      // "'cat':3 'fat':2"
+  @IsOptional()
+  @IsString()
+  lseg?: string;
 
-  // JSON types
-  activeData?: object;          // { "key": "value" }
-  activeDataB?: object;         // { "key": "value" }
-  activeDataSimple?: object;    // { "key": "value" }
+  @IsOptional()
+  @IsString()
+  box?: string;
+
+  @IsOptional()
+  @IsString()
+  path?: string;
+
+  @IsOptional()
+  @IsString()
+  polygon?: string;
+
+  @IsOptional()
+  @IsString()
+  circle?: string;
+
+  @IsOptional()
+  @IsIP()
+  inet?: string;
+
+  @IsOptional()
+  @IsString()
+  ip?: string;
+
+  @IsOptional()
+  @IsMACAddress()
+  macaddress?: string;
+
+  @IsOptional()
+  @IsString()
+  macaddress8?: string;
+
+  @IsOptional()
+  @IsString()
+  bit?: string;
+
+  @IsOptional()
+  @IsString()
+  varbit?: string;
+
+  @IsOptional()
+  @IsString()
+  fullTextSearch?: string;
+
+  @IsOptional()
+  @IsObject()
+  activeData?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
+  activeDataB?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
+  activeDataSimple?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsString() 
+  activeDataC?: Record<string, unknown>;
 }

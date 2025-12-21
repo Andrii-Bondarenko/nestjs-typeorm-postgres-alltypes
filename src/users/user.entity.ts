@@ -241,5 +241,8 @@ export class User extends BaseEntity {
   // Use for: Cross-database compatibility
   @Column("simple-json", { nullable: true })
   activeDataSimple: object;
+
+  @Column("jsonpath", { nullable: true })
+  activeDataC: object;
 }
 
