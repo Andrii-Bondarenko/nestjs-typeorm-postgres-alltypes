@@ -164,6 +164,6 @@ export class CreateUserDto {
   activeDataSimple?: Record<string, unknown>;
 
   @IsOptional()
-  @IsString() 
+  @IsString()
   activeDataC?: Record<string, unknown>;
 }
