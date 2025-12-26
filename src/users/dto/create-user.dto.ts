@@ -1,4 +1,22 @@
-import { IsBoolean, IsDate, IsEnum, IsInt, IsIP, IsNotEmpty, IsNumber, IsNumberString, IsObject, IsOptional, IsString, IsBase64, MaxLength, IsMACAddress } from 'class-validator';
+import { 
+  IsBoolean, 
+  IsDate,
+  IsEnum,
+  IsInt,
+  IsIP,
+  IsNotEmpty, 
+  IsNumber,
+  IsNumberString,
+  IsObject,
+  IsOptional,
+  IsString,
+  IsBase64,
+  MaxLength,
+  IsMACAddress,
+  IsArray,
+  ArrayNotEmpty,
+  IsUrl
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { UserRole } from '../user.entity';
 
@@ -166,4 +184,20 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   activeDataC?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  articles?: string[];
+
+  @IsArray()
+  @IsInt({ each: true })
+  fingers?: number[];
+
+  @IsUrl(
+    { protocols: ['http', 'https'], require_protocol: true },
+    { message: 'Invalid URL format' },
+  )
+  url?: string;
 }
