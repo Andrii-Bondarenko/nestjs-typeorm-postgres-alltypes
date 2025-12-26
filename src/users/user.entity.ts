@@ -244,5 +244,15 @@ export class User extends BaseEntity {
 
   @Column("jsonpath", { nullable: true })
   activeDataC: object;
+
+  @Column("simple-array",{ nullable: true })
+  articles: string[];
+
+  @Column("int", { array: true, nullable: true })
+  fingers: number[];
+
+  @Column({ nullable: true })
+  url: string;
+
 }
 
