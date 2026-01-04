@@ -200,4 +200,12 @@ export class CreateUserDto {
     { message: 'Invalid URL format' },
   )
   url?: string;
+
+  @IsString()
+  @IsOptional()
+  workDateRange: string
+
+  @IsString()
+  @IsOptional()
+  intRange: string
 }

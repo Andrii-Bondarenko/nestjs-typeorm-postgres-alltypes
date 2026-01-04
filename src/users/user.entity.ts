@@ -254,5 +254,10 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   url: string;
 
+  @Column('tstzrange', {nullable: true})
+  workDateRange: string
+
+  @Column('int4range', {nullable: true})
+  intRange: string
 }
 
